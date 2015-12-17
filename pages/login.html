@@ -1,0 +1,79 @@
+
+  <body style="background:#fff;">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="Absolute-Center is-Responsive">
+
+          <div id="logo-container"></div>
+
+          <div>
+            <br>
+            <h4 style="color:#000;text-align: -webkit-center;">SAC Portal</h4>
+            <br>
+          </div>
+
+          <div class="col-sm-12 col-md-10 col-md-offset-1" style="text-align: -webkit-center;">
+            
+            <form name="userForm" ng-init="invalid=false;"ng-submit="submitForm()" novalidate>
+
+              <div class="form-group input-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input type="text" name="name" class="form-control" ng-model="user.roll" placeholder="Username" required>
+                <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Username is required.</p>
+
+              </div>
+
+              <div class="form-group input-group" ng-class="{ 'has-error' : userForm.pass.$invalid && !userForm.pass.$pristine }">
+
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input class="form-control" type="password" name='pass' placeholder="Password" ng-model="user.pass" required/> <span ng-show="userForm.pass.$invalid && !userForm.pass.$pristine" class="help-block">Password is required.</span>   
+              </div>
+              <span style="color:red"ng-show="invalid" class="help-block">{{message}}</span>
+              <div class="form-group">
+                <button type="submit" ng-click="login(user)" class="btn btn-def btn-block" ng-disabled="userForm.$invalid">Login</button>
+              </div>
+
+              <div class="form-group text-center">
+                <a href="#">Forgot Password?</a>
+              </div>
+
+              <hr>
+
+              <div class="form-group">
+                <h4 styl
+                e="color:#000;text-align: -webkit-center;">OR</h4>
+              </div>
+
+              <div class="form-group">
+                <a href="#">
+                  <button id="google">
+                  </button>
+                </a>
+              </div>
+              
+            </form> 
+
+          </div>
+
+          </div>  
+
+        </div>   
+
+      </div>
+
+    </div>
+
+    <footer class="footer">
+
+      <div class="container" style="margin-left: 10px;width: inherit;">
+        Copyright &copy; 2015 Institute Webops 
+        <span style="float:right;margin-right:10px;"><a href="#">Contact Us</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a href="#">About Us</a></span></span>
+      </div>
+
+    </footer>
+
+  </body>
+

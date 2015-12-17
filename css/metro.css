@@ -1,0 +1,19 @@
+.tile-small, .tile, .tile-square, .tile-wide, .tile-large, .tile-big, .tile-super {
+    overflow: visible;
+}
+.tile {
+    width: 200px;
+    height: 200px;
+    display: block;
+    float: left;
+    margin: 5px;
+    background-color: #eeeeee;
+    box-shadow: inset 0 0 1px #FFFFCC;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

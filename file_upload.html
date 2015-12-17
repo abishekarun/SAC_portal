@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+  <title> Meeting details </title>  
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link href="Metro-UI-CSS-master/build/css/metro.css" rel="stylesheet">
+    <link href="Metro-UI-CSS-master/build/css/metro-icons.css" rel="stylesheet">
+    <link href="Metro-UI-CSS-master/build/css/metro-responsive.css" rel="stylesheet">
+    
+    <script src="Metro-UI-CSS-master/build/js/metro.js"></script>
+
+<style>
+    body{
+        overflow-x:hidden;
+    }
+    .myForm {
+               /* width: 55rem;
+                height: 80.75rem;
+                position: fixed;
+                top: 30%;
+                margin-top: -9.375rem;
+                left: 30%;
+                margin-left: -12.5rem;
+                background-color: #ffffff;*/
+                opacity: 0;
+                -webkit-transform: scale(.8);
+                transform: scale(.8);
+    }
+    label{
+        font-weight: bold;
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    #fields{ 
+    margin-left: 15rem;
+    margin-right: 15rem;
+    background-color:white;
+    }
+    #uploads{
+    margin-left: 15rem;
+    margin-right: 15rem;
+    }
+    #vidSec{
+        background-color: white;
+    }
+    #heading{
+        margin-left: 15rem;
+    margin-right: 15rem;
+    margin-top:3%;
+    background-color: white;
+    }
+    #submit{
+        margin-left: 15rem;
+    margin-right: 15rem;
+    margin-top:-1%;
+    background-color: white;
+    }
+    .msg{
+        margin-left: 40%;
+        color: red;
+    }
+    #subButton{
+        margin-left: 41%;
+    }
+</style>
+<script>
+    function _(e1){
+        return document.getElementById(e1);
+    }
+function _(e1){
+        return document.getElementById(e1);
+    }
+function uploadFile(files){
+    //console.log(files);
+    var file=files;
+    var count= file.length;
+    console.log(files[0]);
+//  alert(file.name+" | "+file.size+" | "+file.type);
+    var i=0;
+    for(i=0;i<count;i++)
+    {
+    var formdata = new FormData();
+    formdata.append('file1',file[i]);
+    console.log(formdata);
+    var ajax = new XMLHttpRequest();
+    ajax.upload.addEventListener("progress", progressHandler, false);
+    ajax.addEventListener("load", completeHandler, false);
+    //ajax.addEventListener("error", errorHandler, false);
+    ajax.addEventListener("abort", abortHandler, false);
+    ajax.open("POST", "file_upload_parser.php");
+    ajax.send(formdata);
+}
+}
+function progressHandler(event){
+    _("loaded_n_total").innerHTML="Uploaded "+event.loaded+" bytes of "+event.total;
+    var percent = (event.loaded / event.total) * 100;
+    _("progressBar").value = Math.round(percent);
+    _("status").innerHTML = Math.round(percent)+"% uploaded... please wait";
+}   
+function completeHandler(event){
+    _("status").innerHTML = event.target.responseText;
+    _("progressBar").value = 0;
+}
+/*function errorHandler(event){
+    _("status").innerHTML = "Upload Failed";
+}
+*/
+function abortHandler(event){
+    _("status").innerHTML = "Upload Aborted";
+}
+</script>
+<script>
+    var flag=false;
+    $(function(){
+            var form = $(".myForm");
+
+            form.css({
+                opacity: 1,
+                "-webkit-transform": "scale(1)",
+                "transform": "scale(1)",
+                "-webkit-transition": "1s",
+                "transition": "1s"
+            });
+        });
+
+    function myFunction(){
+        var x = document.getElementById("myFile");
+        var txt = "<br/>";
+        if ('files' in x) {
+            if (x.files.length == 0) {
+                txt = "Select one or more files.";
+            } else {
+                for (var i = 0; i < x.files.length; i++) {
+                    //txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+                    var file = x.files[i];
+                    if ('name' in file) {
+                        txt += "" + file.name + "<br>";
+                    }
+                }
+            }
+        } 
+        else {
+            if (x.value == "") {
+                txt += "Select one or more files.";
+            } else {
+                txt += "The files property is not supported by your browser!";
+                txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+            }
+        }
+        document.getElementById("fileloc").innerHTML = txt;
+    }
+    function validate_fileupload(fileName)
+    {
+        var allowed_extensions = new Array("pdf","wmv","mkv","flv", "mp4", "avi");
+        var file_extension = fileName.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+        for(var i = 0; i <= allowed_extensions.length; i++)
+        {
+            if(allowed_extensions[i]==file_extension)
+            {
+                return true; // valid file extension
+            }
+        }
+
+        return false;
+    }
+    function error(){
+        flag=true;
+    }
+
+    function validateform(){  
+    var name=document.myForm.name.value;  
+    var year=document.myForm.year.value;
+    var number=document.myForm.number.value;
+    var letters = /^[A-Za-z]+$/;
+    document.getElementById("nameloc").innerHTML="";
+    document.getElementById("numloc").innerHTML="";
+    document.getElementById("yearloc").innerHTML="";
+       
+    if (name==null || name=="")
+    {  
+      document.getElementById("nameloc").innerHTML="Name can't be blank";  
+      return false;  
+    }
+    /*else if(!(name.value.match(letters))  
+    {  
+      document.getElementById("nameloc").innerHTML="Only Alphabets in Name";
+      return false;  
+    }*/
+    else if (number == null || number == "")
+    {  
+      document.getElementById("numloc").innerHTML="Number can't be blank";  
+      return false;  
+    }
+    else if (isNaN(number) && flag)
+    {  
+      document.getElementById("numloc").innerHTML="Enter Numeric value only";  
+      return false;  
+    }
+    else if (number == null || number == "" && flag)
+    {  
+      document.getElementById("yearloc").innerHTML="Year can't be blank";  
+      return false;  
+    }
+    else if (isNaN(year) && flag)
+    {  
+      document.getElementById("yearloc").innerHTML="Enter Numeric value only";  
+      return false;  
+    }
+    else if(year.length != 4 && flag)
+    {  
+      document.getElementById("yearloc").innerHTML="Year must be 4 characters long";
+      return false;  
+    }
+    else
+    {
+        return true;
+    }
+        
+
+    }  
+</script>
+</head>
+<body bgcolor="#8470FF">
+
+<form class="myForm" action="upload.php" method="post" enctype="multipart/form-data" name="myForm" onsubmit="return validateform()"  novalidate>
+        
+<div class="grid" id="heading">
+<div class="row padding20"><div class="cell"><h1 class="text-light">Meeting Details </h1> <hr class="thin"/> </div></div>   
+</div>
+
+<div class="grid" id="fields">
+    <div class="row padding20">
+    <div class="cell">
+
+    <div class="input-control text full-size">
+    <label for="meetName"> Meeting Name: </label>
+    <input type="text" name="name" placeholder="Meeting Name">
+    <span class="msg" id="nameloc"></span>
+    </div> <br> </span>
+    <br>
+
+    <div class="input-control text full-size">
+    <label for="meetNum"> Meeting Number: </label>
+    <input type="text" name="number" placeholder="Meeting number">
+    </div> <b> <span class="msg" id="numloc"></span>
+    <br>
+
+    <div class="input-control text full-size">
+    <label for="meetYear"> Meeting Year: </label>
+    <input type="text" name="year" placeholder="e.g. 2016">
+    <span class="msg" id="yearloc"></span>
+    </div> 
+
+    </div>    
+   
+    </div>
+   
+    <div id="vidSec" class="row padding20" style="margin-top:-20px;">           
+         <div data-role="input">
+            <label for="vid1">Upload Multiple files here..<br></label>
+            <input type="file" name="fileToUpload[]" id="myFile" multiple onchange="myFunction(); uploadFile(this.files);"
+             >
+            <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        <h3 id="status"></h3>
+        <p id="loaded_n_total"></p>
+            <br/>Selected files:<span class="msg" id="fileloc"></span>
+        </div>
+    </div>
+
+</div> 
+<div class="grid" id="submit">
+<div class="row padding20"><div class="cell">
+    <div class="form-actions">
+                <button id="subButton"type="submit" class="button rounded" onclick="uploadFile()" >Submit</button>
+   </div>
+    </div>
+    </div>
+    </div>
+
+</form>
+
+</body>
+</html>

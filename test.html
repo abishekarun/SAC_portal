@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<title>Proper Title</title>
+<style>
+	#selectedFiles img {
+		max-width: 200px;
+		max-height: 200px;
+		float: left;
+		margin-bottom:10px;
+	}
+</style>
+</head>
+    
+<body>
+	
+	<form id="myForm" method="post">
+
+        Files: <input type="file" id="files" name="files" multiple><br/>
+
+        <div id="selectedFiles"></div>
+
+        <input type="submit">
+	</form>
+
+	<script>
+	var selDiv = "";
+	var storedFiles = [];
+		
+	document.addEventListener("DOMContentLoaded", init, false);
+	
+	function init() {
+		document.querySelector('#files').addEventListener('change', handleFileSelect, false);
+		selDiv = document.querySelector("#selectedFiles");
+		document.querySelector('#myForm').addEventListener('submit', handleForm, false);
+	}
+		
+	function handleFileSelect(e) {
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		filesArr.forEach(function(f) {			
+
+			if(!f.type.match("image.*")) {
+				return;
+			}
+			storedFiles.push(f);
+			
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var html = "<img src=\"" + e.target.result + "\">" + f.name + "<br clear=\"left\"/>";
+				selDiv.innerHTML += html;
+				
+			}
+			reader.readAsDataURL(f); 
+		});
+		
+	}
+		
+	function handleForm(e) {
+		e.preventDefault();
+		var data = new FormData();
+		
+		for(var i=0, len=storedFiles.length; i<len; i++) {
+			data.append('fileToUpload', storedFiles[i]);	
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'upload.php', true);
+		
+		xhr.onload = function(e) {
+			if(this.status == 200) {
+				console.log(e.currentTarget.responseText);	
+				alert(e.currentTarget.responseText + ' items uploaded.');
+			}
+		}
+		
+		xhr.send(data);
+	}
+	</script>
+
+</body>
+</html>
