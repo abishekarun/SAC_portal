@@ -8,7 +8,6 @@ $status=0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['year']) && isset($_POST['name']) ) {
 $result = '';
-
 $meeting_name=$_POST['name'];
 $year=$_POST['year'];
 $count = count($_FILES['fileToUpload']['name']);
@@ -56,11 +55,11 @@ while($i<$count)
 {
 
 $target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
+$target_file = str_replace(' ','',$target_dir . basename(trim($_FILES["fileToUpload"]["name"][$i])));
 $uploadOk = 1;
 $FileType = pathinfo($target_file,PATHINFO_EXTENSION);
 //$file_name=basename($_FILES["fileToUpload"]["name"][$i],$FileType);
-$file_name=pathinfo($_FILES["fileToUpload"]["name"][$i], PATHINFO_FILENAME);
+$file_name=str_replace(' ','',pathinfo($_FILES["fileToUpload"]["name"][$i], PATHINFO_FILENAME));
 // Check if image file is a actual image or fake image
 /* if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -86,6 +85,7 @@ elseif ($_FILES["fileToUpload"]["size"][$i] > $max_file_size) {
     $uploadOk = 0;
 }
 // Allow certain file formats
+
 elseif(! in_array(strtolower(pathinfo($_FILES["fileToUpload"]["name"][$i], PATHINFO_EXTENSION)), $valid_formats)) {
     echo nl2br("Sorry, only PDF, MP4, MKV , FLV & WMV files are allowed.\n");
     break;
@@ -98,7 +98,7 @@ elseif ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } 
 else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file)) {
+    if (move_uploaded_file(trim($_FILES["fileToUpload"]["tmp_name"][$i]), $target_file)) {
         echo nl2br("The file ". basename( $_FILES["fileToUpload"]["name"][$i]). " has been uploaded.\n");
         
         $path=$target_file;
