@@ -1,9 +1,7 @@
 <?php
 
-$server='localhost';
-$user='root';
-$passwd='root';
-$db='sac_portal';
+
+require '../config.php';
 $response=array();
 if (isset($_POST['file_name']) && isset($_POST['year']) && isset($_POST['type']) && isset($_POST['meeting_name'])  ) {
 try{

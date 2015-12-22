@@ -1,9 +1,6 @@
 <?php
 session_start();
-$server='localhost';
-$user='root';
-$passwd='root';
-$db='sac_portal';
+require 'config.php';
 $status=0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['year']) && isset($_POST['name']) ) {

@@ -1,9 +1,7 @@
 <?php
 
-$server='localhost';
-$user='root';
-$passwd='root';
-$db='sac_portal';
+
+require '../config.php';
 $response=array();
 $data=array();
 $result=array();

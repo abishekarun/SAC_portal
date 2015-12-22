@@ -1,9 +1,7 @@
 <?php
 // Array with names
-$server="localhost";
-$user="root";
-$pwd="root";
-$db="sac_portal";
+
+require '../config.php';
 $conn = new PDO("mysql:host=$server;dbname=$db", $user, $pwd);
 // set the PDO error mode to exception
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -87,7 +85,7 @@ if ($q !== "")
 		else
 		echo "Minimum number of characters is 3 ";		
 }
-// Output "no suggestion" if no hint was found or output correct values 
+// Output "no suggestion" if no h int was found or output correct values 
 function Bold($text, $str) {
     return str_replace($text, "<strong>".$text."</strong>", $str);
 }

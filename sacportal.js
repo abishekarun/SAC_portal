@@ -65,7 +65,7 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
 	});
 	}
 	$scope.show=function(){
-		if($scope.username === "ch13b009"){
+		if($scope.username === "me12b113"){
 		$scope.admin=true;
 		}
 		return $scope.admin;
@@ -164,7 +164,7 @@ app.controller('loginController',['$scope','$http','$localstorage','$location','
 		var toBeSendData = $.param(user);
 		$http({
 			method: 'POST', 
-			url: 'http://10.24.0.224/mobapi/ldap/login.php',
+			url: 'https://students.iitm.ac.in/mobapi/ldap/login.php',
 			data:  toBeSendData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	    }).
