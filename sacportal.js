@@ -117,7 +117,7 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
 			$scope.type="video/"+b;
 		}
 		$scope.path="../SAC_Portal/"+decodeURIComponent(a);
-		//console.log($scope.path);
+		console.log($scope.path);
 	}
 	$scope.delete=function(a,b,c,d){
 		//console.log("success");
@@ -218,12 +218,13 @@ app.controller('UploadController',['$scope','$http','$localstorage','$location',
 	$scope.submit=function(user){
 	console.log("success");
 		var file = $scope.myFile;
+		file=file.replace(" ","");
 		var uploadUrl = 'api/upload.php';
 		fileUpload.uploadFileToUrl(file, uploadUrl);
 	 
 	}
 }]);
-app.directive('dirDisqus', ['$window', function($window) {
+/*app.directive('dirDisqus', ['$window', function($window) {
         return {
             restrict: 'E',
             scope: {
@@ -296,7 +297,7 @@ app.directive('dirDisqus', ['$window', function($window) {
                 });
             }
         };
-    }]);
+    }]);*/
 })();
 angular.module('ionic.utils', [])
 
