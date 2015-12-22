@@ -117,7 +117,7 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
 			$scope.type="video/"+b;
 		}
 		$scope.path="../SAC_Portal/"+decodeURIComponent(a);
-		//console.log($scope.path);
+		console.log($scope.path);
 	}
 	$scope.delete=function(a,b,c,d){
 		//console.log("success");
@@ -164,7 +164,7 @@ app.controller('loginController',['$scope','$http','$localstorage','$location','
 		var toBeSendData = $.param(user);
 		$http({
 			method: 'POST', 
-			url: 'http://10.24.0.224/mobapi/ldap/login.php',
+			url: 'https://students.iitm.ac.in/mobapi/ldap/login.php',
 			data:  toBeSendData,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	    }).
@@ -218,12 +218,13 @@ app.controller('UploadController',['$scope','$http','$localstorage','$location',
 	$scope.submit=function(user){
 	console.log("success");
 		var file = $scope.myFile;
+		file=file.replace(" ","");
 		var uploadUrl = 'api/upload.php';
 		fileUpload.uploadFileToUrl(file, uploadUrl);
 	 
 	}
 }]);
-app.directive('dirDisqus', ['$window', function($window) {
+/*app.directive('dirDisqus', ['$window', function($window) {
         return {
             restrict: 'E',
             scope: {
@@ -296,7 +297,7 @@ app.directive('dirDisqus', ['$window', function($window) {
                 });
             }
         };
-    }]);
+    }]);*/
 })();
 angular.module('ionic.utils', [])
 
