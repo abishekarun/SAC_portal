@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id']=9626;
+$_SESSION['username']=9626;
 /*-----configuration ----*/
 // $host="localhost";  
 // $username="root";
@@ -13,20 +13,31 @@ $data = json_decode($post_data);
 $message=$data->message;
 $meeting_name=$data->meeting_name;	
 $year=$data->meeting_year;
-
-$user_id=$_SESSION['user_id'];
+$username=$data->username;
 try {
 $con=new PDO("mysql:host=$server;dbname=$db",$user,$passwd);
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$stmt = $con->prepare("INSERT INTO msg (message,meeting_name,user_id,year) VALUES (:message, :meeting_name,:user_id,:year)");
+$stmt = $con->prepare("INSERT INTO msg (message,meeting_name,username,year) VALUES (:message, :meeting_name,:username,:year)");
 $stmt->bindParam(':message', $message);
-$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':username', $username);
 $stmt->bindParam(':meeting_name', $meeting_name);
 $stmt->bindParam(':year', $year);
 $stmt->execute();
-//echo "{message:'".$message."',user_id:'".$user_id."'}";
-$json_data=array('message'=>$message,'user_id'=>$user_id);
-//array_push($json_data,$user_id);
+//echo "{message:'".$message."',username:'".$username."'}";
+
+/*----------get full name-----*/
+$db2='students_1415';
+$con2=new PDO("mysql:host=$server;dbname=$db2",$user,$passwd);
+$con2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$stmt2 = $con2->prepare("select fullname from users where  username= :username");
+$stmt2->bindValue(':username',$username);
+$stmt2->execute();
+$fullname=$stmt2->fetch(PDO::FETCH_ASSOC);
+
+//--------------------------------until here ------------------
+
+$json_data=array('message'=>$message,'username'=>$username,'fullname'=>$fullname['fullname']);
+//array_push($json_data,$username);
 echo json_encode($json_data);
 }
 catch(PDOException $e)

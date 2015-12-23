@@ -1,14 +1,15 @@
 (function(){
 var app=angular.module('app', ['ngRoute','ionic.utils']);
 
-app.controller("commentCtrl", ['$scope', '$http', function commentCtrl($scope, $http) {
+app.controller("commentCtrl", ['$scope', '$http','$rootScope','$localstorage', function commentCtrl($scope, $http,$rootScope,$localstorage) {
         $scope.url = 'submit.php';
         $scope.formsubmit = function(isValid) {
-        $scope.user_id=99;
+        $username=$localstorage.get('username');
 
             if (isValid) {
-              
-                $http.post($scope.url, {"user_id": $scope.user_id, "meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
+                 //$username=localstorage.get('username');
+
+                $http.post($scope.url, {"username":$username,"meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
                         success(function(data, status) {
                             console.log(data);
                             $scope.status = status;
@@ -27,23 +28,7 @@ app.controller("commentCtrl", ['$scope', '$http', function commentCtrl($scope, $
 
     }]);
 
-app.controller("getcommentCtrl",['$scope','$http',function getcommentCtrl($scope,$http)
-{
-$scope.url='getcomments.php';
-$scope.post_id=12;
-$scope.comments=0
 
-var res=$http.get($scope.url, {"post_id": $scope.post_id}).
-                        success(function(data, status) {
-                            console.log(data);
-                            $scope.status = status;
-                            $scope.comments = data;                         
-                        });
-
-
-
-     
-}]);
 
 
 
@@ -146,12 +131,13 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
 		$scope.meeting_name=a['meeting_name'];
 		$scope.tiles_hide=true;
 		//var commentdata = $.param({meeting_name : $scope.meeting_name });
-		
-			$http.post('getcomments.php', {"meeting_name": $scope.meeting_name,"meeting_year":$scope.meeting_year}).
+		$http.post('getcomments.php', {"meeting_name": $scope.meeting_name,"meeting_year":$scope.meeting_year}).
 	                        success(function(data, status) {
-	                            //console.log(data);
-	                            $scope.comments = data;           
+	                        	//console.log(data);	                            //console.log(data[1][0]['message']);
+	                            $scope.comments = data;
+	                                       
 	                        })
+			
 	      
 
 	}
