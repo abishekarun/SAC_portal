@@ -45,7 +45,10 @@ try{
 							if($data != null)
 							{
 								$response=array('meeting_name' => $meeting_name , 'files' => $data );
+								
 								array_push($result,$response);
+								// array_push($result,$year);
+								// array_push($result,$meeting_name);
 							}
 						$data=[];
 					}

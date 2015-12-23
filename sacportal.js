@@ -1,6 +1,52 @@
 (function(){
 var app=angular.module('app', ['ngRoute','ionic.utils']);
 
+app.controller("commentCtrl", ['$scope', '$http', function commentCtrl($scope, $http) {
+        $scope.url = 'submit.php';
+        $scope.formsubmit = function(isValid) {
+        $scope.user_id=99;
+
+            if (isValid) {
+              
+                $http.post($scope.url, {"user_id": $scope.user_id, "meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
+                        success(function(data, status) {
+                            console.log(data);
+                            $scope.status = status;
+                            $scope.data = data;
+                            $scope.result = data;
+                            $scope.message=''; 
+                         
+                        })
+            }else{
+                
+                  alert('Form is not valid');
+            }
+
+        }
+
+
+    }]);
+
+app.controller("getcommentCtrl",['$scope','$http',function getcommentCtrl($scope,$http)
+{
+$scope.url='getcomments.php';
+$scope.post_id=12;
+$scope.comments=0
+
+var res=$http.get($scope.url, {"post_id": $scope.post_id}).
+                        success(function(data, status) {
+                            console.log(data);
+                            $scope.status = status;
+                            $scope.comments = data;                         
+                        });
+
+
+
+     
+}]);
+
+
+
 app.
 config(function ($routeProvider,$locationProvider){
 	$routeProvider
@@ -58,7 +104,7 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
     }).
   	success(function(response) {
 	$scope.years=response;
-	//console.log(response.year);
+	//console.log(response[1]);
 	//console.log($scope.years);
 		}).
 	error(function(response) {
@@ -94,10 +140,22 @@ app.controller('nav',['$scope','$http','$localstorage','$location','$rootScope',
 		//$location.path('/'+'upload');
 		console.log("success");
 	}
-	$scope.tiles=function(a){
-		$scope.files=a;
+	$scope.tiles=function(a,b){
+		$scope.files=a.files;
+		$scope.meeting_year=b['year'];
+		$scope.meeting_name=a['meeting_name'];
 		$scope.tiles_hide=true;
+		//var commentdata = $.param({meeting_name : $scope.meeting_name });
+		
+			$http.post('getcomments.php', {"meeting_name": $scope.meeting_name,"meeting_year":$scope.meeting_year}).
+	                        success(function(data, status) {
+	                            //console.log(data);
+	                            $scope.comments = data;           
+	                        })
+	      
+
 	}
+
 	$scope.tileshow=function(){
 		$scope.tiles_hide=false;
 		$scope.video=false;

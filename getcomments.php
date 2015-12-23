@@ -1,21 +1,21 @@
 <?php
 session_start();
 $_SESSION['user_id']=9626;
-/*-----configuration ----*/
-$host="localhost";  
-$username="root";
-$password="sai"; 
-$db='comment';
+
+require 'config.php';
 
 $post_data = file_get_contents("php://input");
 $data = json_decode($post_data);
-$file_id=12;	
+$meeting_name=$data->meeting_name;
+$year=$data->meeting_year;
+
 $user_id=$_SESSION['user_id'];
 try {
-$con=new PDO("mysql:host=$host;dbname=$db",$username,$password);
+$con=new PDO("mysql:host=$server;dbname=$db",$user,$passwd);
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$stmt = $con->prepare("select * from msg where file_id = :file_id");
-$stmt->bindValue(':file_id',$file_id);
+$stmt = $con->prepare("select * from msg where meeting_name = :meeting_name and year=:year");
+$stmt->bindValue(':meeting_name',$meeting_name);
+$stmt->bindValue(':year',$year);
 $stmt->execute();
 $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

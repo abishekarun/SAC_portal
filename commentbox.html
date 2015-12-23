@@ -1,0 +1,43 @@
+<div class="container">
+<div ng-controller="commentCtrl">
+            <form  name="userForm"  class="col-md-8"   >
+                <div class="form-group">
+                <input type="hidden" ng-model="meeting_name" value='{{meeting_name}}' >
+                 <input type="hidden" ng-model="meeting_year" value='{{meeting_year}}' >
+                <textarea type="text" ng-model="message" rows="3"  class="input-medium search-query form-control" placeholder="Message" required >
+                </textarea>
+                </div>
+                <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-right" ng-click="formsubmit(userForm.$valid)"  ng-disabled="userForm.$invalid">Submit </button>
+		          </div>
+            </form>
+
+           
+            <div ng-model="result" class="col-md-8" ng-if='result'>    
+                <ul>
+                        <li>
+                          <header>
+                            <h1 >{{ result.user_id}}</h1>
+                          </header>
+                          <article>
+                            {{result.message}}
+                          </article>
+                        </li>
+                 </ul>
+            </div>
+    
+           
+
+            
+</div>
+
+
+
+  
+        <div ng-include="'comments.html'">
+            
+        </div>
+    
+</div>
+
+

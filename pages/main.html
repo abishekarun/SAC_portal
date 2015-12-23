@@ -52,14 +52,14 @@
                         </li>
 
                         <li>
-                            <h4 style="text-align: center;">YEARS</h4>
+                            <a style="text-align: center;">YEARS</a>
                         </li>
 
                         <li ng-repeat= "x in years" ng-init="flag=false;">
                             <a href="" ng-click="flag=!flag;tileshow()"><i class="fa fa-circle-o"></i> {{x.year}}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level" ng-show="flag">
                                 <li ng-repeat = "y in x.meetings">
-                                    <a href="" ng-click="tiles(y.files)" >{{y["meeting_name"]}}</a>
+                                    <a href="" ng-click="tiles(y,x)" >{{y["meeting_name"]}}</a>
                                 </li>
                             </ul>
                         </li>
@@ -92,6 +92,12 @@
 
                     </div>
                 </div>
+                <div  ng-show="tiles_hide" ng-include="'commentbox.html'" style="">
+                    
+
+
+
+                </div>
             </div>
 
         </div>
@@ -100,7 +106,7 @@
 
     <footer class="footer">
 
-      <div class="container" style="margin-left: 10px;width: inherit;">
+      <div class="container footer-nav" style="margin-left: 10px;width: inherit;">
         Copyright &copy; 2015 Institute Webops 
         <span style="float:right;margin-right:10px;"><a href="">Contact Us</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><a href="">About Us</a></span></span>
       </div>

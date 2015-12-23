@@ -1,0 +1,17 @@
+<ul ng-if="comments.length">
+    <li ng-repeat="comment in comments"class="col-md-8">
+      <header>
+        <h1 >{{ comment.user_id}}</h1>
+      </header>
+      <article>
+      	{{comment.message}}
+      </article>
+    </li>
+  </ul>
+<!--   <form name="form" ng-submit="form.$valid &amp;&amp; addNewComment()" novalidate="novalidate">
+    <input type="text" placeholder="First and second name" ng-pattern="/[a-zA-Z.,-]+/" ng-model="newComment.author.name" required="required"/>
+    <textarea placeholder="Comment" ng-model="newComment.content" required="required"></textarea>
+    <input type="email" placeholder="Email" ng-model="newComment.author.email" required="required"/>
+    <input type="url" placeholder="Website" ng-model="newComment.author.website"/>
+    <button type="submit" class="ripple">Add comment</button><img id="newCommentAvatar" ng-src="{{ getGravatar(newComment.author.email) }}"/>
+  </form> -->

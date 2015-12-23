@@ -23,7 +23,167 @@
     <script src="js/collapse.js"></script>
     <link href="css/metro.css" rel="stylesheet">
     <script src="js/metro.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/semantic.min.css">
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-messages.min.js"></script>
+ <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.min.css"></link>
+ <style>
+ .container-fluid
+ {
+    margin-bottom: 100px;
+ }
+@import url(//fonts.googleapis.com/css?family=Ubuntu:300,700);
+* {
+  margin: 0;
+  padding: 0;
+  background: scroll transparent none 0 0 repeat;
+  border: 0 none #000;
+  outline: 0 none #000;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  text-transform: inherit;
+  line-height: inherit;
+  vertical-align: top;
+  z-index: inherit;
+  cursor: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.footer
+{
+    position: fixed;
+    bottom:0px;
+}
+
+
+/*html,
+body {
+  height: 100%;
+}*/
+
+body {
+  
+  font-family: Ubuntu, sans-serif;
+  font-weight: 300;
+}
+
+ul {
+  padding-left: 80px;
+  list-style: none;
+}
+ul li {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+ul li:not(:first-child) {
+  margin-top: 20px;
+}
+ul li:before {
+  content: "";
+  border-width: 10px 10px 10px 0;
+  border-style: solid;
+  border-color: transparent #fff;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+}
+ul li header {
+  border-bottom: 1px solid #e5e5e5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+ul li header * {
+  display: block;
+}
+ul li header h1 {
+  padding-left: 20px;
+  font-weight: normal;
+  line-height: 40px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+ul li header h1 a {
+  text-decoration: none;
+  display: inline-block;
+}
+ul li header h1.author, ul li header h1.author * {
+  color: #9a3;
+}
+ul li header h1.author:after {
+  content: "Author";
+  margin: 10px 0 10px 10px;
+  padding: 0 5px;
+  background: #9a3;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 20px;
+  position: absolute;
+}
+ul li header button {
+  padding: 10px;
+}
+ul li header img {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border: 4px solid #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  left: -80px;
+}
+ul li article {
+  padding: 20px;
+  white-space: pre-line;
+  overflow-x: hidden;
+}
+ul li article .reply {
+  color: #9a3;
+}
+ul li article strong {
+  font-weight: 500;
+}
+ul li article em {
+  font-style: italic;
+}
+ul li article a {
+  text-decoration: underline;
+}
+ul li article a:hover {
+  text-decoration: none;
+}
+ul li article code {
+  font-family: "Source Code Pro", monospace;
+}
+</style>
+
 </head>
+
+
 
 <body>
 <div>

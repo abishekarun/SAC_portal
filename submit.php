@@ -2,24 +2,27 @@
 session_start();
 $_SESSION['user_id']=9626;
 /*-----configuration ----*/
-$host="localhost";  
-$username="root";
-$password="sai"; 
-$db='comment';
+// $host="localhost";  
+// $username="root";
+// $password="sai"; 
+// $db='comment';
 
+require 'config.php';
 $post_data = file_get_contents("php://input");
 $data = json_decode($post_data);
 $message=$data->message;
-$file_id=$data->file_id;	
+$meeting_name=$data->meeting_name;	
+$year=$data->meeting_year;
 
 $user_id=$_SESSION['user_id'];
 try {
-$con=new PDO("mysql:host=$host;dbname=$db",$username,$password);
+$con=new PDO("mysql:host=$server;dbname=$db",$user,$passwd);
 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$stmt = $con->prepare("INSERT INTO msg (message,file_id,user_id) VALUES (:message, :file_id,:user_id)");
+$stmt = $con->prepare("INSERT INTO msg (message,meeting_name,user_id,year) VALUES (:message, :meeting_name,:user_id,:year)");
 $stmt->bindParam(':message', $message);
 $stmt->bindParam(':user_id', $user_id);
-$stmt->bindParam(':file_id', $file_id);
+$stmt->bindParam(':meeting_name', $meeting_name);
+$stmt->bindParam(':year', $year);
 $stmt->execute();
 //echo "{message:'".$message."',user_id:'".$user_id."'}";
 $json_data=array('message'=>$message,'user_id'=>$user_id);
