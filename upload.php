@@ -82,7 +82,6 @@ elseif ($_FILES["fileToUpload"]["size"][$i] > $max_file_size) {
     $uploadOk = 0;
 }
 // Allow certain file formats
-
 elseif(! in_array(strtolower(pathinfo($_FILES["fileToUpload"]["name"][$i], PATHINFO_EXTENSION)), $valid_formats)) {
     echo nl2br("Sorry, only PDF, MP4, MKV , FLV & WMV files are allowed.\n");
     break;
@@ -128,7 +127,7 @@ else {
     }
     if($status == 1)
     {   
-        header("Location: http://localhost/SAC_Portal/getstarted.html#/index");
+        header("Location: index.html");
         exit();
     }//$responseArray = array('status' => $status ,'message' => $message);
     //array_push($response, $responseArray);

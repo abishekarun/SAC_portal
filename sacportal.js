@@ -5,9 +5,8 @@ app.controller("commentCtrl", ['$scope', '$http','$rootScope','$localstorage', f
         $scope.url = 'submit.php';
         $scope.formsubmit = function(isValid) {
         $username=$localstorage.get('username');
-
+        $fullname=$localstorage.get('fullname');
             if (isValid) {
-                 //$username=localstorage.get('username');
 
                 $http.post($scope.url, {"username":$username,"meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
                         success(function(data, status) {
@@ -15,6 +14,7 @@ app.controller("commentCtrl", ['$scope', '$http','$rootScope','$localstorage', f
                             $scope.status = status;
                             $scope.data = data;
                             $scope.result = data;
+                            $scope.fullname=$fullname.toUpperCase();
                             $scope.message=''; 
                          
                         })
@@ -213,8 +213,9 @@ app.controller('loginController',['$scope','$http','$localstorage','$location','
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	    }).
 	  	success(function(response) {
-		//console.log(response);
-		$localstorage.set('username',user.roll);
+		//console.log(response[0].username);
+		$localstorage.set('username',response[0].username);
+		$localstorage.set('fullname',response[0].fullname);
 		$scope.username=$localstorage.get('username');
 		$rootScope.loggedinUser=$scope.username;
 		$location.path('/'+'index');
