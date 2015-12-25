@@ -7,7 +7,6 @@ app.controller("commentCtrl", ['$scope', '$http','$rootScope','$cookies', functi
         $username=$cookies.username;
         $fullname=$cookies.fullname;
             if (isValid) {
-
                 $http.post($scope.url, {"username":$username,"meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
                         success(function(data, status) {
                             console.log(data);
