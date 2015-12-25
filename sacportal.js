@@ -1,11 +1,11 @@
 (function(){
 var app=angular.module('app', ['ngRoute','ngCookies']);
 
-app.controller("commentCtrl", ['$scope', '$http','$rootScope','$cookies', function commentCtrl($scope, $http,$rootScope,$localstorage) {
+app.controller("commentCtrl", ['$scope', '$http','$rootScope','$cookies', function commentCtrl($scope, $http,$rootScope,$cookies) {
         $scope.url = 'submit.php';
         $scope.formsubmit = function(isValid) {
         $username=$cookies.username;
-        $fullname=$localstorage.fullname;
+        $fullname=$cookies.fullname;
             if (isValid) {
 
                 $http.post($scope.url, {"username":$username,"meeting_name": $scope.meeting_name, "message": $scope.message,"meeting_year":$scope.meeting_year}).
